@@ -1,32 +1,32 @@
 mod repository;
 
 use crate::utils::{string, terminal};
-
+use colored::*;
 use repository::Employee;
 pub use repository::EmployeeDatabase;
 
 pub fn list_all(employees_db: &EmployeeDatabase) {
     if employees_db.is_empty() {
-        println!("No employees.");
+        println!("{}", "No employees.".yellow());
         println!();
         return;
     }
 
-    println!("Employees: ");
+    println!("{}", "Employees: ".green());
     println!();
 
     for (department, employees) in employees_db {
         if !employees.is_empty() {
-            println!("{department} Department:");
+            println!("{} {}", department.blue(), "Department:".blue());
 
             for employee in employees {
-                println!("  Employee {}:", employee.name());
+                println!("  Employee {}:", employee.name().green());
 
                 if let Some(id) = employee.id() {
-                    println!("    Id: {}", id);
+                    println!("    Id: {}", id.to_string().green());
                 }
 
-                println!("    Phone: {}", employee.phone());
+                println!("    Phone: {}", employee.phone().green());
                 println!();
             }
         }
@@ -34,7 +34,7 @@ pub fn list_all(employees_db: &EmployeeDatabase) {
 }
 
 pub fn save(employees: &mut EmployeeDatabase) {
-    println!("Add new employee:");
+    println!("{}", "Add new employee:".green());
     println!();
 
     let name = terminal::read_string_no_empty("Name: ");
@@ -49,17 +49,11 @@ pub fn save(employees: &mut EmployeeDatabase) {
 
     let employee = repository::save(employees, &mut employee);
 
-    let mut id = 0;
-
-    if let Some(x) = employee.id() {
-        id = *x;
-    }
-
     println!(
-        "{} was added to department {} with id \"{}\".",
-        employee.name(),
-        employee.department(),
-        id
+        "{} {} {}.",
+        employee.name().green(),
+        "was added to department".green(),
+        employee.department().green(),
     );
 
     println!();
@@ -71,15 +65,25 @@ pub fn remove(employees: &mut EmployeeDatabase) {
     let is_canceled = id == -1;
 
     if is_canceled {
-        println!("Removal canceled!");
+        println!("{}", "Removal canceled!".yellow());
         return;
     }
 
     let removed = repository::remove(employees, Some(id));
 
     if removed {
-        println!("Employee with id \"{id}\" removed");
+        println!(
+            "{} {} {}",
+            "Employee with id".green(),
+            id.to_string().green(),
+            "removed.".green()
+        );
     } else {
-        println!("Employee with id \"{id}\" not found");
+        println!(
+            "{} {} {}",
+            "Employee with id".red(),
+            id.to_string().red(),
+            "not found.".red()
+        );
     }
 }

@@ -1,6 +1,7 @@
 use std::io;
 use std::io::prelude::*;
 use std::str::FromStr;
+use colored::*;
 
 pub fn clear() {
     print!("\x1B[2J\x1B[1;1H");
@@ -9,7 +10,7 @@ pub fn clear() {
 pub fn press_any_key_to_continue() {
     let mut value = String::new();
 
-    println!("Press any key to continue...");
+    println!("{}", "Press any key to continue...".yellow());
 
     io::stdin()
         .read_line(&mut value)
@@ -17,7 +18,7 @@ pub fn press_any_key_to_continue() {
 }
 
 pub fn read_string(msg: &str) -> String {
-    print!("{msg}");
+    print!("{}", msg.green());
 
     io::stdout().flush().expect("Error on flush.");
 
