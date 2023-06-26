@@ -1,6 +1,6 @@
 mod repository;
 
-use crate::utils::{string, terminal};
+use crate::utils::string;
 use colored::*;
 use repository::Employee;
 pub use repository::EmployeeDatabase;
@@ -33,18 +33,11 @@ pub fn list_all(employees_db: &EmployeeDatabase) {
     }
 }
 
-pub fn save(employees: &mut EmployeeDatabase) {
-    println!("{}", "Add new employee:".green());
-    println!();
-
-    let name = terminal::read_string_no_empty("Name: ");
-    let department = terminal::read_string_no_empty("Department: ");
-    let phone = terminal::read_string_no_empty("Phone: ");
-
+pub fn save(employees: &mut EmployeeDatabase, name: &String, department: &String, phone: &String) {
     let mut employee = Employee::new(
         string::title_case(&name[..]),
         string::title_case(&department[..]),
-        phone,
+        phone.clone(),
     );
 
     let employee = repository::save(employees, &mut employee);
@@ -59,16 +52,7 @@ pub fn save(employees: &mut EmployeeDatabase) {
     println!();
 }
 
-pub fn remove(employees: &mut EmployeeDatabase) {
-    let id = terminal::read_number("Employee id (-1 to cancel): ");
-
-    let is_canceled = id == -1;
-
-    if is_canceled {
-        println!("{}", "Removal canceled!".yellow());
-        return;
-    }
-
+pub fn remove(employees: &mut EmployeeDatabase, id: i32) {
     let removed = repository::remove(employees, Some(id));
 
     if removed {

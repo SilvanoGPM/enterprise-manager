@@ -1,6 +1,5 @@
 use std::io;
 use std::io::prelude::*;
-use std::str::FromStr;
 use colored::*;
 
 pub fn clear() {
@@ -38,23 +37,6 @@ pub fn read_string_no_empty(msg: &str) -> String {
         if value.is_empty() {
             continue;
         }
-
-        return value;
-    }
-}
-
-pub fn read_number<T>(msg: &str) -> T
-where
-    T: FromStr,
-    <T as FromStr>::Err: std::fmt::Debug,
-{
-    loop {
-        let value = read_string(msg);
-
-        let value: T = match value.trim().parse() {
-            Ok(x) => x,
-            Err(_) => continue,
-        };
 
         return value;
     }

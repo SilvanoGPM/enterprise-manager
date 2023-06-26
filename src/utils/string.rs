@@ -5,6 +5,7 @@ pub fn title_case(input: &str) -> String {
     for c in input.chars() {
         if c.is_whitespace() {
             capitalize_next = true;
+            result.push(c);
         } else {
             if capitalize_next {
                 result.extend(c.to_uppercase());
