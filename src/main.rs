@@ -16,7 +16,7 @@ fn main() {
     loop {
         terminal::clear();
 
-        let operation = terminal::read_string_no_empty("Command (Help to view all commands): ");
+        let operation = terminal::read_string_no_empty("🤖 Command (Help to view all commands): ");
         let operation = string::title_case(&operation);
 
         terminal::clear();
@@ -30,13 +30,15 @@ fn main() {
                 Command::Exit => break,
             }
         } else {
-            println!("{}", "This command dont exists.".red())
+            println!("❌ {}", "This command dont exists.".red());
+            println!("⚠️  {}", "Use help for a list of commands".blue());
+            println!();
         }
 
         terminal::press_any_key_to_continue();
     }
 
-    println!("{}", "Application finished.".red());
+    println!("🏁 {}", "Application finished.".red());
 }
 
 fn add_employee(employees: &mut EmployeeDatabase, props: AddEmployeeProps) {
@@ -47,7 +49,7 @@ fn remove_employee(employees: &mut EmployeeDatabase, option: Option<i32>) {
     if let Some(id) = option {
         employee::remove(employees, id);
     } else {
-        println!("{}", "Insert a valid id!".red());
+        println!("❌ {}", "Insert a valid id!".red());
     }
 }
 

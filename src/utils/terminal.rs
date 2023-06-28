@@ -9,7 +9,7 @@ pub fn clear() {
 pub fn press_any_key_to_continue() {
     let mut value = String::new();
 
-    println!("{}", "Press any key to continue...".yellow());
+    println!("⌨️ {}", "Press any key to continue...".yellow());
 
     io::stdin()
         .read_line(&mut value)
