@@ -12,7 +12,7 @@
 - Rust 1.63.0 ou superior.
 - Cargo 1.63.0 ou superior.
 
-## 🤖 :Comandos:
+## 🤖 Comandos:
 
 1. List All Employees (Mostra todos os usuários).
 2. Add <NAME> To <DEPARTMENT> With Phone <PHONE> (Adiciona um usuário para um departamento com um telefone).
